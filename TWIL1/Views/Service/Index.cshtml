@@ -1,0 +1,93 @@
+﻿@using TWIL1.ViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Home Page2";
+}
+@model SentimentAnalysisListView
+
+<!-- about section -->
+
+<section class="about_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 px-0">
+                <div class="img_container">
+                    <div class="img-box">
+                        <img src="~/images/about-img.jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 px-0">
+                <div class="detail-box">
+                    <div class="heading_container ">
+                        <h2>
+                            Sentiment Analysis
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 contact_form-container">
+
+                            <form asp-action="GetSentiment" method="post" enctype="multipart/form-data">
+                                <div>
+                                    <p>Select Text Stream for sentiment analysis:</p>
+                                </div>
+                                <div>
+                                    <input class="message_input" type="file" name="File" />
+                                </div>
+                                <div class="btn-box" style="margin:20px 0 0 0">
+                                    <button type="submit">Analyze Sentiment</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin:20px 0 0 0">
+                        <div class="col-md-12">
+                            @if (Model != null) // Check if view model has data
+                            {
+                               if(Model.error == "none")
+                                {
+                                    <table class="table-bordered table-responsive-md table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Text</th>
+                                                <th>Sentiment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Results)
+                                            {
+                                                <tr>
+                                                    <td style="padding:0 7px">@item.Text</td>
+                                                    <td style="padding:0 7px">@item.Sentiment</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <label>@Model.error</label>
+                                }
+               
+                            }
+                            else
+                            {
+                                
+                            }
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end about section -->
+<!-- service section -->
